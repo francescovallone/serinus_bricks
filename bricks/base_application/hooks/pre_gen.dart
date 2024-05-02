@@ -16,8 +16,6 @@ Future<void> run(HookContext context) async {
     rethrow;
   }
   progress.complete();
-
-
 }
 
 String parseName(String name) {
@@ -32,12 +30,12 @@ String parseName(String name) {
 
 Future<String> getSerinusVersion() async {
   final client = Client();
-  final res = await client.get(Uri.parse('https://pub.dartlang.org/packages/serinus.json'));
+  final res = await client.get(Uri.parse('https://pub.dev/api/packages/serinus'));
   if(res.statusCode != 200){
     throw Exception('Failed to fetch serinus package');
   }
   final body = res.body;
   final package = jsonDecode(body);
-  final version = package['versions'][0];
+  final version = package['latest']['version'];
   return version;
 }
