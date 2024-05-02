@@ -1,5 +1,5 @@
 name: {{name.snakeCase()}}
-description: {{description}}
+description: "{{description}}"
 
 
 environment:
