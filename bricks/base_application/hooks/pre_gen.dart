@@ -4,18 +4,18 @@ import 'package:http/http.dart';
 import 'package:mason/mason.dart';
 
 Future<void> run(HookContext context) async {
-  Progress progress = context.logger.progress('Parsing project name...');
+  context.logger.info('Parsing project name...');
   String name = context.vars['name'];
   context.vars['name'] = parseName(name);
-  progress.complete('Project name parsed to ${context.vars['name']}');
-  progress = context.logger.progress('Fetching latest version of serinus package...');
+  context.logger.success('Project name parsed to ${context.vars['name']}');
+  context.logger.info('Fetching latest version of serinus package...');
   try{
     context.vars['serinus_version'] = await getSerinusVersion();
   }catch(e){
-    progress.fail('Failed to fetch latest version of serinus package');
+    context.logger.err('Failed to fetch latest version of serinus package');
     rethrow;
   }
-  progress.complete();
+  context.logger.success('Serinus latest version fetched correctly');
 }
 
 String parseName(String name) {
