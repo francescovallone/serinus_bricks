@@ -4,9 +4,9 @@
 /// This module should extend the [Module] class and override the [registerAsync] method.
 /// 
 /// You can also use the constructor to initialize any dependencies that your plugin may have.
-class {{name.pascalCase}}Module extends Module {
+class {{name.pascalCase()}}Module extends Module {
   
-  {{name.pascalCase}}Module();
+  {{name.pascalCase()}}Module();
 
   @override
   Future<Module> registerAsync(ApplicationConfig config) async {
