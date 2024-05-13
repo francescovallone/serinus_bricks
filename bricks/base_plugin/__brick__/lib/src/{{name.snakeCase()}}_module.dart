@@ -1,3 +1,5 @@
+import 'package:serinus/serinus.dart';
+
 /// This module is a representation of the entrypoint of your plugin.
 /// It is the main class that will be used to register your plugin with the application.
 /// 
