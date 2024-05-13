@@ -1,5 +1,5 @@
-name: base_application
-description: A brick for creating a new Serinus Application.
+name: base_plugin
+description: A brick for creating a new Serinus Plugin.
 
 # The following defines the brick repository url.
 # Uncomment and update the following line before publishing the brick.
@@ -8,7 +8,7 @@ description: A brick for creating a new Serinus Application.
 # The following defines the version and build number for your brick.
 # A version number is three numbers separated by dots, like 1.2.34
 # followed by an optional build number (separated by a +).
-version: 0.1.0+2
+version: 0.1.0+1
 
 # The following defines the environment for the current brick.
 # It includes the version of mason that the brick requires.
@@ -33,5 +33,14 @@ vars:
   description:
     type: string
     description: A description of the project.
-    default: 'A new Serinus Application'
+    default: 'A new Serinus Plugin'
     prompt: What is the description of the project?
+  repository:
+    type: string
+    description: The repository URL for the project.
+    prompt: What is the repository URL for the project?
+  version:
+    type: string
+    description: The version of the project.
+    default: '0.0.1+1'
+    prompt: What is the version of the project?
