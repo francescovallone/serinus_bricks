@@ -1,4 +1,4 @@
-name: {{name.snakeCase()}}
+name: {{name.snakeCase()}}_example
 description: "{{description}}"
 version: 1.0.0
 publish_to: 'none'
@@ -9,4 +9,5 @@ environment:
 
 dependencies:
   serinus: ^{{serinus_version}}
+  {{name.snakeCase()}}: ^{{version}}
   
