@@ -1,5 +1,6 @@
 import 'package:serinus/serinus.dart';
 
+import 'app_provider.dart';
 import 'todo.dart';
 
 class AppController extends Controller {
@@ -17,11 +18,11 @@ class AppController extends Controller {
   Future<Todo> _getTodo(RequestContext context) async {
     final index = int.tryParse(context.params['index'] ?? '');
     if (index == null) {
-      throw BadRequestException('Invalid index');
+      throw BadRequestException(message: 'Invalid index');
     }
     final todos = context.use<AppProvider>().todos;
     if (todos.isEmpty || index < 0 || index >= todos.length) {
-      throw NotFoundException('Todo not found');
+      throw NotFoundException(message: 'Todo not found');
     }
     return todos[index];
   }
@@ -29,7 +30,7 @@ class AppController extends Controller {
   Future<Todo> _toggleTodo(RequestContext context) async {
     final index = int.tryParse(context.params['index'] ?? '');
     if (index == null) {
-      throw BadRequestException('Invalid index');
+      throw BadRequestException(message: 'Invalid index');
     }
     context.use<AppProvider>().toggleTodoStatus(index);
     return context.use<AppProvider>().todos[index];
