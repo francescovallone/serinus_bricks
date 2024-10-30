@@ -11,7 +11,7 @@ class AppController extends Controller {
   }
 
   Future<List<Todo>> _getAllTodos(RequestContext context) async {
-    return context.provider<AppProvider>().todos;
+    return context.use<AppProvider>().todos;
   }
 
   Future<Todo> _getTodo(RequestContext context) async {
@@ -19,7 +19,7 @@ class AppController extends Controller {
     if (index == null) {
       throw BadRequestException('Invalid index');
     }
-    final todos = context.provider<AppProvider>().todos;
+    final todos = context.use<AppProvider>().todos;
     if (todos.isEmpty || index < 0 || index >= todos.length) {
       throw NotFoundException('Todo not found');
     }
@@ -31,8 +31,8 @@ class AppController extends Controller {
     if (index == null) {
       throw BadRequestException('Invalid index');
     }
-    context.provider<AppProvider>().toggleTodoStatus(index);
-    return context.provider<AppProvider>().todos[index];
+    context.use<AppProvider>().toggleTodoStatus(index);
+    return context.use<AppProvider>().todos[index];
   }
 
 
