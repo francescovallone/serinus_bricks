@@ -40,10 +40,13 @@ class AppController extends Controller {
 
   Future<Todo> _createTodo(RequestContext context) async {
     final body = context.body.json;
-    if (body == null || body['title'] == null) {
+    if(body?.multiple == true) {
       throw BadRequestException(message: 'Invalid request body');
     }
-    final title = body['title'] as String;
+    if (body == null || body.value['title'] == null) {
+      throw BadRequestException(message: 'Invalid request body');
+    }
+    final title = body.value['title'] as String;
     context.use<AppProvider>().addTodo(title);
     return context.use<AppProvider>().todos.last;
   }
