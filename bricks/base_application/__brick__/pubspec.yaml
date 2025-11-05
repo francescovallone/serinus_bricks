@@ -9,4 +9,7 @@ environment:
 
 dependencies:
   serinus: ^{{serinus_version}}
+
+dev_dependencies:
+  serinus_lint: ^0.1.1
   
