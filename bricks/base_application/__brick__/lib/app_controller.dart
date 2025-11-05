@@ -24,7 +24,7 @@ class AppController extends Controller {
     }
     final todos = context.use<AppProvider>().todos;
     if (todos.isEmpty || index < 0 || index >= todos.length) {
-      throw NotFoundException(message: 'Todo not found');
+      throw NotFoundException('Todo not found');
     }
     return todos[index];
   }
@@ -40,7 +40,7 @@ class AppController extends Controller {
 
   Future<Todo> _createTodo(RequestContext<Map<String, dynamic>> context) async {
     if (context.body['title'] == null) {
-      throw BadRequestException(message: 'Invalid request body');
+      throw BadRequestException('Invalid request body');
     }
     final title = context.body['title'] as String;
     context.use<AppProvider>().addTodo(title);
@@ -50,7 +50,7 @@ class AppController extends Controller {
   Future<void> _removeTodo(RequestContext context) async {
     final index = int.tryParse(context.params['index'] ?? '');
     if (index == null) {
-      throw BadRequestException(message: 'Invalid index');
+      throw BadRequestException('Invalid index');
     }
     context.use<AppProvider>().removeTodoAt(index);
   }
