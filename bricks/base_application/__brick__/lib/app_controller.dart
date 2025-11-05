@@ -5,10 +5,10 @@ import 'todo.dart';
 
 class AppController extends Controller {
 
-  AppController({super.path = '/'}){
+  AppController(): super('/'){
     on(Route.get('/'), _getAllTodos);
     on(Route.get('/<index>'), _getTodo);
-    on(Route.post('/') , _createTodo);
+    on<Todo, Map<String, dynamic>>(Route.post('/') , _createTodo);
     on(Route.put('/<index>'), _toggleTodo);
     on(Route.delete('/<index>'), _removeTodo);
   }
@@ -20,7 +20,7 @@ class AppController extends Controller {
   Future<Todo> _getTodo(RequestContext context) async {
     final index = int.tryParse(context.params['index'] ?? '');
     if (index == null) {
-      throw BadRequestException(message: 'Invalid index');
+      throw BadRequestException('Invalid index');
     }
     final todos = context.use<AppProvider>().todos;
     if (todos.isEmpty || index < 0 || index >= todos.length) {
@@ -32,21 +32,17 @@ class AppController extends Controller {
   Future<Todo> _toggleTodo(RequestContext context) async {
     final index = int.tryParse(context.params['index'] ?? '');
     if (index == null) {
-      throw BadRequestException(message: 'Invalid index');
+      throw BadRequestException('Invalid index');
     }
     context.use<AppProvider>().toggleTodoStatus(index);
     return context.use<AppProvider>().todos[index];
   }
 
-  Future<Todo> _createTodo(RequestContext context) async {
-    final body = context.body.json;
-    if(body?.multiple == true) {
+  Future<Todo> _createTodo(RequestContext<Map<String, dynamic>> context) async {
+    if (context.body['title'] == null) {
       throw BadRequestException(message: 'Invalid request body');
     }
-    if (body == null || body.value['title'] == null) {
-      throw BadRequestException(message: 'Invalid request body');
-    }
-    final title = body.value['title'] as String;
+    final title = context.body['title'] as String;
     context.use<AppProvider>().addTodo(title);
     return context.use<AppProvider>().todos.last;
   }
